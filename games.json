@@ -1,7 +1,10 @@
   {
     "Case Clicker":{"script":"https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/testgui.lua", "gameid": 4897855737},
-    "Counter Blox":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/cbro.lua", "gameid": 115797356},
+    "Counter Blox":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/cbro.lua", "gameid": 115797356},
     "Arsenal":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/arsenal.lua", "gameid": 111958650},
+    "Arsenal":{"script":"https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/main.lua", "gameid": 111958650},
     "Tower of Hell":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/tower_of_hell.lua", "gameid": 703124385},
     "Custom Duels":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/custom_duels.lua", "gameid": 936191547}
+    "Builda A Boat":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/buildboat.lua", "gameid": 537413528},
+    "RoCitizens":{"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/rociz.lua", "gameid": 137877687},
   }
