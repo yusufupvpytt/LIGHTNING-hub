@@ -88,7 +88,7 @@ local loadstring = function(x)
 end
 
 local function search_For_Game()
-	local games = httpGet("https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/games.json")
+	local games = httpGet("https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games.json")
 	local decoded = game:GetService("HttpService"):JSONDecode(games)
 	for i, v in pairs(decoded) do
 		if v.script and v.gameid == game.GameId then
