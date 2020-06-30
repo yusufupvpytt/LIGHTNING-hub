@@ -1,4 +1,5 @@
   {
+     "Testt":{"script":"https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/testgui.lua", "gameid": 4897855737},
     "Case Clicker":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/case_clicker.lua", "gameid": 290999714},
     "Counter Blox":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/cbro.lua", "gameid": 115797356},
     "Arsenal":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/arsenal.lua", "gameid": 111958650},
