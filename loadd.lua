@@ -106,6 +106,7 @@ if gstatus then
 	status.Text = "Starting Script"
 	ScreenGui:Destroy()
 	loadstring(httpGet(scr))()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/logo.lua'))()
 else
 	status.Text = index
 	wait(1)
