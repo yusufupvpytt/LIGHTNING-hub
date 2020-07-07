@@ -1,4 +1,4 @@
-
+loadstring(game:HttpGet('https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/logo.lua'))()
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("ImageLabel")
 local UISizeConstraint = Instance.new("UISizeConstraint")
@@ -106,7 +106,6 @@ if gstatus then
 	status.Text = "Starting Script"
 	ScreenGui:Destroy()
 	loadstring(httpGet(scr))()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/logo.lua'))()
 else
 	status.Text = index
 	wait(1)
