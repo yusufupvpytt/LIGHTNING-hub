@@ -5,5 +5,6 @@
     "Tower of Hell":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/tower_of_hell.lua", "gameid": 703124385},
     "Prison Life":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/prisonlife.lua", "gameid": 73885730},
     "Build Aboat":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/buildaboat.lua", "gameid": 210851291},
+    "Adopt me":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/adoptme.lua", "gameid": 383310974},
     "Custom Duels":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/custom_duels.lua", "gameid": 936191547}
   }
