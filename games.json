@@ -9,6 +9,6 @@
     "Lumber Tycoon":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/lumber.lua", "gameid": 2471084},
     "Ninja":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/ninja.lua", "gameid": 1335695570},
     "Jail":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/jailbreak.lua", "gameid": 245662005},
-        "phantom":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/phjantom.lua", "gameid": 113491250},
+    "phantom":{"script":"https://raw.githubusercontent.com/yusufupvpytt/rokcetabiadam/master/komutlar/phantom.lua?token=AL2PHQSVWLN7VBTTUKH3VLC7IT4Q4", "gameid": 113491250},
     "Custom Duels":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/custom_duels.lua", "gameid": 936191547}
   }
