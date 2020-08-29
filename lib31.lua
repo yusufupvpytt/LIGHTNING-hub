@@ -217,7 +217,7 @@ do
 			Parent = game.CoreGui
 		}, {
 			utility:Create("ImageLabel", {
-				Name = "Main",
+				Name = "patchthis",
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0.25, 0, 0.052435593, 0),
 				Size = UDim2.new(0, 511, 0, 428),
