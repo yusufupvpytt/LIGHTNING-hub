@@ -1,29 +1,31 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/lib31.lua"))()
-local Arsenal = library.new("Astral Hub", 5013109572)
-
--- themes
-local themes = {
-Background = Color3.fromRGB(24, 24, 24),
-Glow = Color3.fromRGB(0, 0, 0),
-Accent = Color3.fromRGB(10, 10, 10),
-LightContrast = Color3.fromRGB(20, 20, 20),
-DarkContrast = Color3.fromRGB(14, 14, 14),  
-TextColor = Color3.fromRGB(255, 255, 255)
-}
-
-
-
-local ESP = false --ESP
+local aimkey = Enum.UserInputType.MouseButton2;
+local enabled = false;
+local camera = workspace.CurrentCamera;
+local down = false;
+local aimpart = "Head";
+local tsp = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2 + 400);
+local gs = game:GetService("GuiService"):GetGuiInset();
+local sc = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2);
+local fov = 120;
+local fovenabled = false;
+local rainbowfov = false;
+local teamcheck = false;
+local walkspeedenabled = false
+local triggerbot = false;
+local healthcheck = false;
+local visibilitycheck = false;
+local counter = 0;
+_G.Spread = false
 local FlyOrWhat = false --Fly
-local AutoRes = false --Auto Respawn
+local AutoRes = false 
 _G.On = false --Tracers
-local aim = false;
+_G.Aim = false;
 local wall = false;
 --create variables
 plrs = game:service'Players'
 lp = plrs.LocalPlayer
 char = lp.Character
-_G.Fall = false --No Fall Damage
+_G.NoFallDamage = false;
 _G.Spam = false --No Spam Kick
 --Initialize Functions
 local GetAllPlayerParts
@@ -31,6 +33,17 @@ local WeaponTable
 local breakwin
 local deployfunc
 
+
+
+  --get function used for breaking windows
+  function gettable()
+  for i, v in pairs(getgc(true)) do
+     if type(v) == "table" and rawget(v, "effects") then
+  breakwin = v.effects.module.breakwindow
+     end
+  end
+  end
+  spawn(gettable)
 
 function GetFunc()
     for i, v in pairs(getgc(true)) do
@@ -42,146 +55,69 @@ function GetFunc()
       end
     end
   end
-  function GetDeployFunc() --Get the func used for spawning
-  for i, v in pairs(getgc(true)) do
-     if type(v) == "table" and rawget(v, "deploy") then
-  deployfunc = v
-     end
-  end
-  end
-  spawn(GetDeployFunc)
-  function HookAmmo() --Useless for now
-  for i, v in pairs(getgc(true)) do
-   if type(v) == "function" and debug.getinfo(v).name == "updateammo" then
+
+
+
+  local Network;
+  local old;
   
-  local OldFunction
-  local Hook = function(self, ...)
-  local Args = {...}
-  if Args[1] == 0 and Args[2] > 0 then
-  print("No Ammo")
-  end
-  return OldFunction(self, ...)
-  end
-  OldFunction = hookfunction(v, Hook)
-  
-  end
-  end
-  end
-  spawn(HookAmmo)
-  
-  --hook
-      local OldFunction
-    function HookItNow()
-       local func
-  for i, v in pairs(getgc(true)) do
-    if type(v) == "function" and debug.getinfo(v).name == "send" then
-      func = v
-    end
-  end
-  local OldFunction
-  local Hook = function(self, ...)
-  local Args = {...}
-  local name = Args[1]
-  for a,b in pairs(self) do
-  self.playerping = self.serverping
-  end
-  
-  if name == 'newpos' then
-      --return  yes those kids are smart not letting me make kill all
-  end
-  if name == 'closeconnection' and _G.Spam == true then --anti kick
-      return
+  for i,v in next, getreg() do
+      if type(v) == "function" then
+          for i,v in next, debug.getupvalues(v) do
+              if type(v) == "table" and rawget(v, 'send') then
+                  Network = v;
+                  old = v.send;
+              end
+          end
       end
-  if name == 'changehealthx' then
-    if #Args > 4 and Args[3] == 'Falling' and _G.Fall == true then --anti fall damage
-      return
-    end
-  end
-  return OldFunction(self, ...)
-  end
-  OldFunction = hookfunction(func, Hook)
-  end
-    spawn(HookItNow)
-  
-    --Modify some messages cuz why not?
-  for i, v in pairs(getgc(true)) do
-     if type(v) == "table" and rawget(v, "squad") then
-         v.kill = {"You killed your enemy with the help of gogo1000"}
-         v.suppression = {"You suppressed the enemy with the help of gogo1000"}
-     end
   end
   
-  
-  --Draw ESP function
-  local function DrawGUI(R,G,B,pos,name)
-    if not pos:FindFirstChild(name) then
-      local box = Instance.new("BoxHandleAdornment", pos)
-      box.AlwaysOnTop = true
-      box.Adornee = pos
-      box.Size = pos.Size
-      box.Color3 = Color3.fromRGB(R,G,B)
-      box.Name = name
-      box.ZIndex = 5
-    end
-  end
-  
-  spawn(GetFunc)
-  
-  
-  --get function used for breaking windows
-  function gettable()
-  for i, v in pairs(getgc(true)) do
-     if type(v) == "table" and rawget(v, "effects") then
-  breakwin = v.effects.module.breakwindow
-     end
-  end
-  end
-  spawn(gettable)
-
-
-
-
-
-local page = Arsenal:addPage("Main", 5012544693)
-local page2 = Arsenal:addPage("Gun Mods", 5012544693)
-local page3 = Arsenal:addPage("Other", 5012544693)
-local section1 = page:addSection(" ")
-local section2 = page:addSection(" ")
-local section3 = page2:addSection(" ")
-local section4 = page3:addSection("")
-
-section3:addButton("No Recoil", function()
-    for i, data in pairs(getgc(true)) do
-        if type(data) == "table" and rawget(data, "camkickmax") then
-          local V = Vector3.new()
-          data.camkickmin = V
-          data.camkickmax = V
-          data.aimcamkickmin = V
-          data.aimcamkickmax = V
-          data.aimtranskickmin = V
-          data.aimtranskickmax = V
-          data.transkickmin = V
-          data.transkickmax = V
-          data.rotkickmin = V
-          data.rotkickmax = V
-          data.aimrotkickmin = V
-          data.aimrotkickmax = V
-        end
+  Network.send = function(self, ...)
+      local Args = {...}
+      if Args[1] == "changehealthx" and _G.NoFallDamage then
+          return;
       end
-end)
-section3:addButton("Full Auto", function()
+      return old(self, unpack(Args))
+  end
+
+
+
+
+
+
+-- ##  Varibles  ## --
+local test = false;
+local Visibility = false;
+local Camera = game:GetService("Workspace").CurrentCamera
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local FontValue = 3
+
+
+local Lib = loadstring(game:HttpGet("https://pastebinp.com/raw/GCM3Zpzg",true))()
+local Table = {}
+local window = Lib:CreateWindow("Main")
+local window2 = Lib:CreateWindow("Visuals")
+local window3 = Lib:CreateWindow("Gun Mods")
+window3:Button("Fast Bullets",function()
     local V = Vector3.new()
-  for i, data in pairs(getgc(true)) do
-    if type(data) == "table" and rawget(data, "camkickmax") then
-       for a,b in pairs(data.firemodes) do
-          data.firemodes = {true, 3, 1}
-        
-         end
+    for i, data in pairs(getgc(true)) do
+      if type(data) == "table" and rawget(data, "camkickmax") then
+        data.bulletspeed = 999;
+      end
     end
-  end
 end)
 
-section3:addButton("No Sway", function()
+window3:Button("Fast Bullets",function()
+    local V = Vector3.new()
+    for i, data in pairs(getgc(true)) do
+      if type(data) == "table" and rawget(data, "camkickmax") then
+       data.penetrationdepth = 3000; --yeah its client side...
+      end
+    end
+end)
+
+window3:Button("No Sway",function()
     local V = Vector3.new()
     for i, data in pairs(getgc(true)) do
       if type(data) == "table" and rawget(data, "camkickmax") then
@@ -192,209 +128,207 @@ section3:addButton("No Sway", function()
       end
     end
 end)
-section3:addButton("No Flash", function()
-    local V = Vector3.new()
-    for i, data in pairs(getgc(true)) do
-      if type(data) == "table" and rawget(data, "camkickmax") then
-          if data.hideflash ~= nil then
-        data.hideflash = true
+
+window2:Toggle("Esp",{location = Table, flag = "Toggle"},function(ui)
+    Visibility = Table["Toggle"]
+end)
+window2:Toggle("Fov",{location = Table, flag = "Toggle"},function(ui)
+    fovenabled = Table["Toggle"]
+end)
+window2:Toggle("Rainbow Fov",{location = Table, flag = "Toggle"},function(ui)
+    rainbowfov = Table["Toggle"]
+end)
+window2:Button("Rainbow Gun",function()
+    game:GetService("RunService").Stepped:Connect(function()
+        for a,b in pairs(workspace.Camera:GetChildren()) do 
+        for c,d in pairs(game:GetService("ReplicatedStorage").GunModels:GetChildren()) do 
+        if b.Name == d.Name then 
+        for e,f in pairs(b:GetChildren()) do 
+        if f:IsA("BasePart") then 
+        f.Color = Color3.fromHSV(tick()%5/5,1,1)
         end
-      end
-    end
-end)
-section3:addButton("Fast Bullets", function()
-    local V = Vector3.new()
-    for i, data in pairs(getgc(true)) do
-      if type(data) == "table" and rawget(data, "camkickmax") then
-        data.bulletspeed = 999;
-      end
-    end
-end)
-section3:addButton("No Spread", function()
-    local V = Vector3.new()
-    for i, data in pairs(getgc(true)) do
-      if type(data) == "table" and rawget(data, "camkickmax") then
-        data.hipfirespreadrecover = 100
-        data.hipfirespread = 0
-        data.hipfirestability = 0
-      end
-    end
-end)
-section3:addButton("Inf Penetration", function()
-    local V = Vector3.new()
-    for i, data in pairs(getgc(true)) do
-      if type(data) == "table" and rawget(data, "camkickmax") then
-       data.penetrationdepth = 3000; --yeah its client side...
-      end
-    end
-end)
-
-section4:addButton("Break All Windows", function()
-    for i,v in pairs(workspace.Map:GetDescendants()) do
-        if v:IsA("BasePart") and tostring(v) == "Window" then
-        
-           breakwin(v, v, nil, true, true,nil,nil,nil)
-        
-            end
         end
-end)
-
-
-section1:addToggle("Aimbot", nil, function(value)
-    aim = value
-    end)
-
-    section1:addToggle("Aimbot Wall Check", nil, function(value)
-        wall = value
+        end
+        end
+        end
         end)
-    
+end)
+window2:Toggle("No Falldamage",{location = Table, flag = "Toggle"},function(ui)
+    _G.NoFallDamage = Table["Toggle"]
+end)
 
-        section1:addToggle("ESP", nil, function(value)
-            ESP = value
-            spawn(StartESP)
-            end)
-            section1:addToggle("No Fall Damge", nil, function(value)
-                _G.Fall = value
-                end)
-                
-            section1:addToggle("Tracers", nil, function(value)
-                _G.On = value
-                spawn(tracers)
-                end)
-                section4:addToggle("FullBright", nil, function(value)
-                    spawn(FullBright)
-                    end)
-                    section1:addToggle("Fly (Double Jump)", nil, function(value)
-                        FlyOrWhat = value
-                        end)
-                        section1:addToggle("Auto Respawn", nil, function(value)
-                            AutoRes = value
-                            end)
-                            section1:addToggle("No Kick On Spam", nil, function(value)
-                                _G.Spam = value
-                                end)
+window3:Toggle("Rage Mods",{location = Table, flag = "Toggle"},function(ui)
+    _G.Spread = Table["Toggle"]
+      loadstring(game:HttpGet("https://pastebinp.com/raw/DGDusfF9"))();
+end)
 
 
+window:Toggle("Silent Aim",{location = Table, flag = "Toggle"},function(ui)
+    _G.Aim = Table["Toggle"]
+    loadstring(game:HttpGet("https://pastebin.com/raw/WV6genzS"))();
+end)
 
+window:Toggle("Fly",{location = Table, flag = "Toggle"},function(ui)
+    FlyOrWhat = Table["Toggle"]
+end)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-function aimbot()--This function IS NOT made by me. Tho i modified it to work on PF
-	PLAYER  = game.Players.LocalPlayer
-MOUSE   = PLAYER:GetMouse()
-CC      = game.Workspace.CurrentCamera
-
-ENABLED      = false
-ESP_ENABLED  = false
-
-_G.FREE_FOR_ALL = true
-
-_G.BIND        = 50
-_G.ESP_BIND    = 52
-_G.CHANGE_AIM  = 'q'
-
-_G.AIM_AT = 'Head'
-
-wait(1)
---This function IS NOT made by me. Tho i modified it to work on PF
-function GetNearestPlayerToMouse()
-	local PLAYERS      = {}
-	local PLAYER_HOLD  = {}
-	local DISTANCES    = {}
-	for i, v in pairs(GetAllPlayerParts()) do
-		if v ~= PLAYER then
-			table.insert(PLAYERS, v)
-		end
-	end
-	for i, v in pairs(PLAYERS) do
-	
-
-			local AIM = v:FindFirstChild(_G.AIM_AT)
-			if AIM ~= nil then
-				local DISTANCE                 = (AIM.Position - game.Workspace.CurrentCamera.CoordinateFrame.p).magnitude
-				local RAY                      = Ray.new(game.Workspace.CurrentCamera.CoordinateFrame.p, (MOUSE.Hit.p - CC.CoordinateFrame.p).unit * DISTANCE)
-				local HIT,POS                  = game.Workspace:FindPartOnRay(RAY, game.Workspace)
-				local DIFF                     = math.floor((POS - AIM.Position).magnitude)
-				PLAYER_HOLD[v.Name .. i]       = {}
-				PLAYER_HOLD[v.Name .. i].dist  = DISTANCE
-				PLAYER_HOLD[v.Name .. i].plr   = v
-				PLAYER_HOLD[v.Name .. i].diff  = DIFF
-				table.insert(DISTANCES, DIFF)
+window:Toggle("Speed",{location = Table, flag = "Toggle"},function(ui)
+    walkspeedenabled = Table["Toggle"]
+    local walkspeedplayer = game:GetService("Players").LocalPlayer
+	local walkspeedmouse = walkspeedplayer:GetMouse()
+ 
+ 
+	function x_walkspeed(key)
+		if (key == "w") then
+			if walkspeedenabled == false then
+				_G.WS = 36;
+				local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+				Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+				Humanoid.WalkSpeed = _G.WS;
+				end)
+				Humanoid.WalkSpeed = _G.WS;
+ 
+				walkspeedenabled = true
+			elseif walkspeedenabled == true then
+				_G.WS = 36;
+				local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+				Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+				Humanoid.WalkSpeed = _G.WS;
+				end)
+				Humanoid.WalkSpeed = _G.WS;
+ 
+				walkspeedenabled = false
 			end
 		end
-
-	
-	if unpack(DISTANCES) == nil then
-		return false
 	end
-	
-	local L_DISTANCE = math.floor(math.min(unpack(DISTANCES)))
-	if L_DISTANCE > 20 then
-		return false
-	end
-	
-	for i, v in pairs(PLAYER_HOLD) do
-		if v.diff == L_DISTANCE then
-			return v.plr
-		end
-	end
-	return false
-end
-local camera = workspace.CurrentCamera
-function WorldToScreen(Position)
-      return camera:WorldToScreenPoint(Position) 
-end
-
-
-MOUSE.Button2Up:connect(function(KEY)
-
-
-		ENABLED = false
-
+ 
+	walkspeedmouse.KeyDown:connect(x_walkspeed)
+ 
 end)
 
-MOUSE.Button2Down:connect(function(KEY)
 
-			ENABLED = true
 
-end)
+
+
+
+
+
+--##   Scripts ##--
+local function CycleFont()
+    if FontValue + 1 > 3 then
+       FontValue = 1
+    else
+        FontValue = FontValue + 1
+    end
 end
-  spawn(aimbot)
+
+local function ModelTemplate()
+   local Objects = {
+       Box = Drawing.new("Quad"),
+       Name = Drawing.new("Text"),
+   } 
+   
+   return Objects
+end
+
+local function GetPartCorners(Part)
+	local Size = Part.Size * Vector3.new(1, 1.5)
+	return {
+        TR = (Part.CFrame * CFrame.new(-Size.X, -Size.Y, 0)).Position,
+		BR = (Part.CFrame * CFrame.new(-Size.X, Size.Y, 0)).Position,
+		TL = (Part.CFrame * CFrame.new(Size.X, -Size.Y, 0)).Position,
+		BL = (Part.CFrame * CFrame.new(Size.X, Size.Y, 0)).Position,
+	}
+end
+
+local function ApplyModel(Model)
+    local Objects = ModelTemplate()
+    local CurrentParent = Model.Parent
+    
+    spawn(function()
+        Objects.Name.Center = true
+        Objects.Name.Visible = true
+        Objects.Name.Outline = true
+        Objects.Name.Transparency = 1
+        Objects.Box.Visible = true
+        Objects.Box.Transparency = 1
+       
+        while Model.Parent == CurrentParent do
+            local Vector, OnScreen = Camera:WorldToScreenPoint(Model.Head.Position)
+            local Distance = (Camera.CFrame.Position - Model.HumanoidRootPart.Position).Magnitude
+            
+            if OnScreen and Model.Parent.Name ~= game:GetService("Players").LocalPlayer.Team.Name and Visibility then
+                Objects.Name.Position = Vector2.new(Vector.X, Vector.Y + math.clamp(Distance / 10, 10, 30) - 10)
+                Objects.Name.Size = math.clamp(30 - Distance / 10, 10, 30)
+                Objects.Name.Color = Color3.fromHSV(math.clamp(Distance / 5, 0, 125) / 255, 0.75, 1)
+                Objects.Name.Visible = true
+                Objects.Name.Transparency = math.clamp((500 - Distance) / 200, 0.2, 1)
+            else
+                Objects.Name.Visible = true 
+            end
+            
+            local PartCorners = GetPartCorners(Model.HumanoidRootPart)
+            local VectorTR, OnScreenTR = Camera:WorldToScreenPoint(PartCorners.TR)
+            local VectorBR, OnScreenBR = Camera:WorldToScreenPoint(PartCorners.BR)
+            local VectorTL, OnScreenTL = Camera:WorldToScreenPoint(PartCorners.TL)
+            local VectorBL, OnScreenBL = Camera:WorldToScreenPoint(PartCorners.BL)
+            
+            if (OnScreenBL or OnScreenTL or OnScreenBR or OnScreenTR) and Model.Parent.Name ~= game:GetService("Players").LocalPlayer.Team.Name and Visibility then
+                Objects.Box.PointA = Vector2.new(VectorTR.X, VectorTR.Y + 36)
+                Objects.Box.PointB = Vector2.new(VectorTL.X, VectorTL.Y + 36)
+                Objects.Box.PointC = Vector2.new(VectorBL.X, VectorBL.Y + 36)
+                Objects.Box.PointD = Vector2.new(VectorBR.X, VectorBR.Y + 36)
+                Objects.Box.Color = Color3.fromHSV(math.clamp(Distance / 5, 0, 125) / 255, 0.75, 1)
+                Objects.Box.Thickness = math.clamp(3 - (Distance / 100), 0, 3)
+                Objects.Box.Transparency = math.clamp((500 - Distance) / 200, 0.2, 1)
+                Objects.Box.Visible = true
+            else
+                Objects.Box.Visible = false
+            end
+            
+            RunService.RenderStepped:Wait()
+        end
+        
+        Objects.Name:Remove()
+        Objects.Box:Remove()
+    end)
+end
+
+for _, Player in next, game:GetService("Workspace").Players.Phantoms:GetChildren() do
+    ApplyModel(Player)
+end
+
+for _, Player in next, game:GetService("Workspace").Players.Ghosts:GetChildren() do
+    ApplyModel(Player)
+end
+
+game:GetService("Workspace").Players.Phantoms.ChildAdded:Connect(function(Player)
+    delay(0.5, function()
+        ApplyModel(Player)
+    end)
+end)
+
+game:GetService("Workspace").Players.Ghosts.ChildAdded:Connect(function(Player)
+    delay(0.5, function()
+        ApplyModel(Player)
+    end)
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function StartESP()
     while wait(1) do
       --yeah this is some cringe stuff right here but im too lazy to remake
@@ -859,4 +793,106 @@ if wall == false then
 end
 	
 	end
+end)
+
+
+
+local Players = game:GetService("Players");
+local Client = Players.LocalPlayer;
+local Mouse = Client:GetMouse();
+
+local mousemoverel = mousemoverel or Input.MouseMove;
+
+
+local NotObstructing = function(destination, ignore)
+    local Origin = workspace.CurrentCamera.CFrame.p
+    local CheckRay = Ray.new(Origin, destination- Origin)
+    local Hit = workspace:FindPartOnRayWithIgnoreList(CheckRay, ignore)
+    return Hit == nil
+end 
+
+function Circle(color)
+    local circ = Drawing.new('Circle')
+    circ.Transparency = 1
+    circ.Thickness = 1.5
+    circ.Visible = true
+    circ.Color = color
+    circ.Filled = false
+    circ.Radius = fov
+    return circ
+end
+
+function zigzag(X) 
+    return math.acos(math.cos(X*math.pi))/math.pi 
+end
+
+local GetRel = function(x, y)
+	local newy
+	local newy
+	if x > sc.X then
+		newx = -(sc.X - x)
+	else
+		newx = x - sc.X
+	end
+	if y > sc.Y then
+		newy = -(sc.Y - y)
+	else
+		newy = y - sc.Y
+	end
+	return newx, newy
+end
+
+
+curc = Circle(Color3.fromRGB(255,255,255));
+
+
+
+local NotObstructing = function(destination, ignore)
+    local Origin = workspace.CurrentCamera.CFrame.p
+    local CheckRay = Ray.new(Origin, destination- Origin)
+    local Hit = workspace:FindPartOnRayWithIgnoreList(CheckRay, ignore)
+    return Hit == nil
+end 
+
+game:GetService("UserInputService").InputBegan:Connect(function( input )
+    if input.UserInputType  == aimkey then
+        down = true
+    end
+end)
+
+game:GetService("UserInputService").InputEnded:Connect(function( input )
+    if input.UserInputType == aimkey then
+        down = false
+    end
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function( ... )
+    if enabled then
+        if down then
+            if GetClosestPlayer() ~= nil and GetClosestPlayer().Character:FindFirstChild(aimpart) then
+                pcall(function( ... )
+                    local pos,visible = camera:WorldToScreenPoint(GetClosestPlayer().Character[aimpart].Position)
+                    local x, y = GetRel(pos.X, pos.Y + gs.Y)
+                    mousemoverel(x, y)
+                end)
+			end
+        end
+    end
+    if triggerbot then
+        if Mouse.Target then
+			if IsPlayer(Mouse.Target.Name) or IsPlayer(Mouse.Target.Parent.Name) or IsPlayer(Mouse.Target.Parent.Parent.Name) or IsPlayer(Mouse.Target.Parent.Parent.Parent.Name) then
+				mouse1press()
+				wait(0.01)
+				mouse1release()
+			end
+		end
+    end
+    curc.Visible = fovenabled
+	curc.Position = Vector2.new(Mouse.X, Mouse.Y+gs.Y)
+	curc.Radius = fov
+    curc.NumSides = 15
+    if rainbowfov then
+        curc.Color = Color3.fromHSV(zigzag(counter),1,1)
+    end
+    counter = counter + 0.01
 end)
