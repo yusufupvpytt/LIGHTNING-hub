@@ -13,5 +13,8 @@
      "The Wild West":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/tww", "gameid": 807930589},
     "Swordburst 2":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/sb2", "gameid": 212154879},
     "Ro Ghoul":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/eeeee.txt", "gameid": 380704901},
+    "Recoil":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/reccoil", "gameid": 1534453623},
+    "Polyguns":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/polypuns", "gameid": 146094957},
+    "Alone":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/alone31", "gameid": 1033810431},
     "Custom Duels":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/custom_duels.lua", "gameid": 936191547}
   }
