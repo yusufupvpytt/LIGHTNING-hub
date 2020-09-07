@@ -11,7 +11,7 @@
     "Jail":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/jailbreak.lua", "gameid": 245662005},
     "phantom":{"script":"https://raw.githubusercontent.com/yusufupvpytt/LIGHTNING-hub/master/asdsadas.lua", "gameid": 113491250},
      "The Wild West":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/tww", "gameid": 807930589},
-    "Swordburst 2":{"script":"https://raw.githubusercontent.com/yusufupvpytt/scripts/master/Swordburst%202.lua", "gameid": 212154879},
+    "Swordburst 2":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/sb2", "gameid": 212154879},
     "Ro Ghoul":{"script":"https://raw.githubusercontent.com/yusufupvpytt/y-kle-sikerimbelan-/master/eeeee.txt", "gameid": 380704901},
     "Custom Duels":{"script":"https://raw.githubusercontent.com/TasK-sys/joe_hub_rewritten/master/games/custom_duels.lua", "gameid": 936191547}
   }
